@@ -1,7 +1,13 @@
 <div class="displayBox">
     <h3>Possible Experiments</h3>
     <ul>
-      <li *ngFor="let experiment of experiments">{{experiment}}</li>
+      <li *ngFor="let experiment of experiments" (click)="addTasks(experiment)">{{experiment}}</li>
     </ul>
 </div>
 <hr>
+<div class="displayBox">
+  <h3>Task List <span *ngIf="tasks.length === 3">Full</span></h3>
+  <ol>
+      <li *ngFor="let task of tasks" (click)="addTasks(task)" (mouseover)="selected = task" (mouseout)="selected = false">{{task}}</li>
+  </ol>
+</div>

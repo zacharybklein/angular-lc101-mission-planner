@@ -17,6 +17,7 @@ export class EquipmentComponent implements OnInit {
        {name: 'Satellite', mass: 1200},
        {name: 'R2 Unit', mass: 32}
    ];
+   inHold: boolean = false;
    cargoHold: object[] = [];
    cargoMass: number = 0;
    maximumAllowedMass: number = 2000;
@@ -27,5 +28,35 @@ export class EquipmentComponent implements OnInit {
    ngOnInit() { }
 
    // Code your addItem function here:
+   addItem(equipment: object) {
+    if (this.cargoHold.includes(equipment)) {
+      this.inHold = true;
+    } else {
+      this.inHold = false;
+    }
+
+    if (this.inHold) {
+      return
+    }
+    else {
+    this.cargoHold.push(equipment);
+    this.cargoMass += equipment['mass'];
+    return this.maximumAllowedMass - this.cargoMass <= 200;
+    }
+   }
+
+   removeItem(equipment: object) {
+    let index = this.cargoHold.indexOf(equipment);
+    this.cargoHold.splice(index, 1);
+    this.cargoMass -= equipment['mass'];
+   }
+
+   isIncluded(equipment: object) {
+    if (this.cargoHold.includes(equipment)) {
+      this.inHold = true;
+    } else {
+      this.inHold = false;
+    }
+   }
    
 }
